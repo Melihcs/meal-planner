@@ -1,0 +1,43 @@
+{
+  "name": "@meal-planner/app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "lint": "eslint --max-warnings=0 .",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "cap:sync": "cap sync",
+    "cap:open:ios": "cap open ios",
+    "cap:open:android": "cap open android",
+    "watch": "ng build --watch --configuration development",
+    "test": "vitest run --passWithNoTests"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "21.2.3",
+    "@angular/common": "21.2.3",
+    "@angular/compiler": "21.2.3",
+    "@angular/core": "21.2.3",
+    "@angular/forms": "21.2.3",
+    "@angular/platform-browser": "21.2.3",
+    "@angular/router": "21.2.3",
+    "@capacitor/core": "8.2.0",
+    "@ionic/angular": "8.8.1",
+    "@meal-planner/types": "workspace:*",
+    "ionicons": "^8.0.13",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.2.0",
+    "@capacitor/cli": "8.2.0",
+    "@capacitor/ios": "8.2.0",
+    "@angular/build": "21.2.3",
+    "@angular/cli": "21.2.3",
+    "@angular/compiler-cli": "21.2.3",
+    "jsdom": "^27.1.0",
+    "typescript": "6.0.2",
+    "vitest": "^4.0.8"
+  }
+}

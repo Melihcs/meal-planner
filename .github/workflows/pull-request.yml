@@ -1,0 +1,58 @@
+name: Pull Request
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  frontend:
+    name: Frontend Build And Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Frontend Workspaces
+        run: pnpm turbo run build --filter=@meal-planner/types --filter=@meal-planner/electron --filter=@meal-planner/app
+
+      - name: Lint Frontend Workspaces
+        run: pnpm turbo run lint --filter=@meal-planner/types --filter=@meal-planner/electron --filter=@meal-planner/app
+
+  api:
+    name: API Build And Lint
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: api
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore API Dependencies
+        run: dotnet restore MealPlanner.Api.sln
+
+      - name: Build API
+        run: dotnet build MealPlanner.Api.sln --no-restore
+
+      - name: Lint API
+        run: dotnet format MealPlanner.Api.sln --verify-no-changes --no-restore

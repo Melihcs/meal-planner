@@ -1,0 +1,11 @@
+{
+  "name": "@meal-planner/api",
+  "private": true,
+  "scripts": {
+    "build": "dotnet build MealPlanner.Api.sln",
+    "dev": "dotnet watch --project src/MealPlanner.Api/MealPlanner.Api.csproj run",
+    "lint": "dotnet format MealPlanner.Api.sln --verify-no-changes",
+    "test": "dotnet test MealPlanner.Api.sln",
+    "typecheck": "dotnet build MealPlanner.Api.sln"
+  }
+}

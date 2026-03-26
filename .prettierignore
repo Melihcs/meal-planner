@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+.turbo
+coverage
+dist
+.angular
+apps/app/www
+apps/app/platforms
+apps/app/plugins
+apps/electron/release
+api/**/bin
+api/**/obj
+pnpm-lock.yaml
+
