@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ isEditMode ? 'Edit recipe' : 'New recipe' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="editor-page">
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else if (hasError()) {
+      <app-error-state
+        message="This recipe draft could not be loaded. Try again."
+        (retry)="retry()"
+      />
+    } @else {
+      <form class="form-shell" [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
+        <div>
+          <p class="eyebrow">Recipe editor</p>
+          <h1>{{ isEditMode ? 'Refine the recipe details' : 'Start a new recipe draft' }}</h1>
+          <p class="subcopy">
+            Core recipe fields save to the API. Diet tags are prepared in the UI now and can be
+            wired to backend schema once tag storage lands.
+          </p>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            Title
+            <input formControlName="title" placeholder="Lemon herb chicken bowls" />
+            @if (recipeForm.controls.title.invalid && recipeForm.controls.title.touched) {
+              <span class="error-text">A title of at least 2 characters is required.</span>
+            }
+          </label>
+
+          <label>
+            Cuisine
+            <input formControlName="cuisine" placeholder="Mediterranean" />
+          </label>
+        </div>
+
+        <label>
+          Description
+          <textarea
+            formControlName="description"
+            placeholder="A concise summary of the recipe, prep style, or why it belongs in the weekly loop."
+          ></textarea>
+        </label>
+
+        <div class="timing-grid">
+          <label>
+            Servings
+            <input type="number" inputmode="numeric" formControlName="servings" />
+          </label>
+
+          <label>
+            Prep minutes
+            <input type="number" inputmode="numeric" formControlName="prepTimeMinutes" />
+          </label>
+
+          <label>
+            Cook minutes
+            <input type="number" inputmode="numeric" formControlName="cookTimeMinutes" />
+          </label>
+
+          <label>
+            Visibility
+            <select formControlName="visibility">
+              <option value="private">Private</option>
+              <option value="public">Public</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            Cover colour
+            <input type="color" formControlName="coverColour" />
+          </label>
+
+          <label>
+            Diet tag draft
+            <div class="tag-row">
+              <input formControlName="dietTagDraft" placeholder="High protein" />
+              <ion-button type="button" fill="outline" color="medium" (click)="addDietTag()">
+                Add Tag
+              </ion-button>
+            </div>
+          </label>
+        </div>
+
+        <section class="draft-card">
+          <p class="eyebrow">Diet tags</p>
+          <h2>Prepared for later schema support</h2>
+          <p class="helper">
+            These tags are currently frontend-only. They help shape the editor now without blocking
+            the recipe API work you asked for.
+          </p>
+
+          <div class="tag-row">
+            @for (tag of dietTags(); track tag) {
+              <span class="tag-pill">
+                {{ tag }}
+                <button type="button" (click)="removeDietTag(tag)">×</button>
+              </span>
+            }
+          </div>
+        </section>
+
+        <app-ingredient-builder
+          [ingredients]="ingredients()"
+          (ingredientsChange)="setIngredients($event)"
+        />
+
+        <app-step-builder [steps]="steps()" (stepsChange)="setSteps($event)" />
+
+        <div class="actions">
+          <ion-button type="button" fill="clear" [routerLink]="['/tabs/recipes']">Cancel</ion-button>
+          <ion-button type="submit" [disabled]="saving()">
+            {{ saving() ? 'Saving…' : isEditMode ? 'Save Changes' : 'Create Recipe' }}
+          </ion-button>
+        </div>
+      </form>
+    }
+  </div>
+</ion-content>

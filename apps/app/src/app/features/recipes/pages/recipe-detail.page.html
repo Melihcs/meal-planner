@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recipe detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="recipe-page">
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else if (hasError() || !recipe()) {
+      <app-error-state
+        message="This recipe could not be loaded right now. Try again."
+        (retry)="retry()"
+      />
+    } @else {
+      <section class="hero">
+        <div class="cover-band" [style.background]="recipe()!.coverColour"></div>
+
+        <div class="hero-topline">
+          <div>
+            <p class="eyebrow">{{ recipe()!.cuisine || 'Recipe detail' }}</p>
+            <h1>{{ recipe()!.title }}</h1>
+          </div>
+
+          <div class="hero-actions">
+            <ion-button fill="outline" [routerLink]="['/tabs/recipes', recipe()!.id, 'edit']">
+              Edit
+            </ion-button>
+            <ion-button fill="outline" color="medium" (click)="startCooking()">Cook</ion-button>
+            <ion-button fill="outline" color="danger" (click)="deleteRecipe()">Delete</ion-button>
+          </div>
+        </div>
+
+        <p class="hero-description">{{ recipe()!.description || 'No description yet.' }}</p>
+
+        <div class="hero-meta">
+          <div class="meta-card">
+            <span class="meta-label">Servings</span>
+            <span class="meta-value">{{ recipe()!.servings }}</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Prep</span>
+            <span class="meta-value">{{ recipe()!.prepTimeMinutes ?? '—' }} min</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Cook</span>
+            <span class="meta-value">{{ recipe()!.cookTimeMinutes ?? '—' }} min</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Visibility</span>
+            <span class="meta-value">{{ recipe()!.visibility }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <p class="eyebrow">Nutrition summary</p>
+        <div class="nutrition-grid">
+          <div class="nutrition-card">
+            <span class="nutrition-label">Calories</span>
+            <span class="nutrition-value">{{ formatNutritionValue(nutrition()!.calories) }}</span>
+          </div>
+          <div class="nutrition-card">
+            <span class="nutrition-label">Protein</span>
+            <span class="nutrition-value">{{ formatNutritionValue(nutrition()!.proteinG) }}g</span>
+          </div>
+          <div class="nutrition-card">
+            <span class="nutrition-label">Carbs</span>
+            <span class="nutrition-value">{{ formatNutritionValue(nutrition()!.carbsG) }}g</span>
+          </div>
+          <div class="nutrition-card">
+            <span class="nutrition-label">Fat</span>
+            <span class="nutrition-value">{{ formatNutritionValue(nutrition()!.fatG) }}g</span>
+          </div>
+          <div class="nutrition-card">
+            <span class="nutrition-label">Fibre</span>
+            <span class="nutrition-value">{{ formatNutritionValue(nutrition()!.fibreG) }}g</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-grid">
+        <section class="panel">
+          <p class="eyebrow">Ingredients</p>
+          <h2>Ingredient table</h2>
+
+          @if (recipe()!.ingredients.length === 0) {
+            <app-empty-state message="No ingredients yet. Edit the recipe to add them." />
+          } @else {
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Calories / 100g</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (ingredient of recipe()!.ingredients; track ingredient.id) {
+                  <tr>
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.quantity }}</td>
+                    <td>{{ ingredient.unit }}</td>
+                    <td>{{ ingredient.caloriesPer100G ?? '—' }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+        </section>
+
+        <section class="panel">
+          <p class="eyebrow">Method</p>
+          <h2>Step list</h2>
+
+          @if (recipe()!.steps.length === 0) {
+            <app-empty-state message="No steps yet. Edit the recipe to add the method." />
+          } @else {
+            <ol>
+              @for (step of recipe()!.steps; track step.id) {
+                <li>
+                  <p class="step-copy">{{ step.instruction }}</p>
+                  <div class="step-meta">
+                    <span>Type: {{ step.stepType }}</span>
+                    <span>Timer: {{ step.timerSeconds ?? '—' }}</span>
+                    <span>Background step: {{ step.backgroundStepId ?? 'None' }}</span>
+                  </div>
+                </li>
+              }
+            </ol>
+          }
+        </section>
+      </section>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,128 @@
+<section class="builder-card">
+  <header class="header">
+    <p class="eyebrow">Ingredients</p>
+    <h2>Build the ingredient list</h2>
+    <p class="subcopy">
+      Search-backed Edamam matching lands in F4. For now, enter the ingredient name directly and
+      add any nutrition values you already know.
+    </p>
+  </header>
+
+  <div class="ingredient-list">
+    @for (ingredient of ingredients(); track trackByDraftId($index, ingredient)) {
+      <section class="ingredient-row">
+        <div class="field-grid">
+          <label>
+            Ingredient
+            <input
+              [ngModel]="ingredient.name"
+              (ngModelChange)="updateText(ingredient.draftId, 'name', $event)"
+              placeholder="Cherry tomatoes"
+            />
+          </label>
+
+          <label>
+            Quantity
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.quantity"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'quantity', $event)"
+            />
+          </label>
+
+          <label>
+            Unit
+            <input
+              [ngModel]="ingredient.unit"
+              (ngModelChange)="updateText(ingredient.draftId, 'unit', $event)"
+              placeholder="g"
+            />
+          </label>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            Category
+            <input
+              [ngModel]="ingredient.category ?? ''"
+              (ngModelChange)="updateText(ingredient.draftId, 'category', $event)"
+              placeholder="Vegetable"
+            />
+          </label>
+
+          <label>
+            Sort order
+            <input [value]="ingredient.sortOrder" readonly />
+          </label>
+
+          <label>
+            Edamam ID
+            <input [value]="ingredient.edamamFoodId ?? ''" readonly placeholder="Filled in later" />
+          </label>
+        </div>
+
+        <div class="nutrition-grid">
+          <label>
+            Calories / 100g
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.caloriesPer100G"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'caloriesPer100G', $event)"
+            />
+          </label>
+
+          <label>
+            Protein
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.proteinG"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'proteinG', $event)"
+            />
+          </label>
+
+          <label>
+            Carbs
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.carbsG"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'carbsG', $event)"
+            />
+          </label>
+
+          <label>
+            Fat
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.fatG"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'fatG', $event)"
+            />
+          </label>
+
+          <label>
+            Fibre
+            <input
+              type="number"
+              inputmode="decimal"
+              [ngModel]="ingredient.fibreG"
+              (ngModelChange)="updateNumber(ingredient.draftId, 'fibreG', $event)"
+            />
+          </label>
+        </div>
+
+        <div class="row-actions">
+          <p class="nutrition-note">Nutrition values are optional for now, but power the macro summary.</p>
+          <ion-button fill="clear" color="danger" (click)="removeIngredient(ingredient.draftId)">
+            Remove
+          </ion-button>
+        </div>
+      </section>
+    }
+  </div>
+
+  <ion-button fill="outline" color="medium" (click)="addIngredient()">Add Ingredient</ion-button>
+</section>

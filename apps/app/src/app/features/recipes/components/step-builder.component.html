@@ -1,0 +1,82 @@
+<section class="builder-card">
+  <header class="header">
+    <p class="eyebrow">Method</p>
+    <h2>Author the cooking steps</h2>
+    <p class="subcopy">
+      Drag to reorder. Mark background work like simmering sauce, then link dependent steps to that
+      background action.
+    </p>
+  </header>
+
+  <div cdkDropList class="step-list" [cdkDropListData]="steps()" (cdkDropListDropped)="reorderSteps($event)">
+    @for (step of steps(); track trackByDraftId($index, step)) {
+      <section class="step-card" cdkDrag>
+        <div class="step-topline">
+          <div class="step-meta">
+            <button class="drag-handle" type="button" cdkDragHandle aria-label="Reorder step">
+              ≡
+            </button>
+            <span class="step-number">{{ step.stepNumber }}</span>
+          </div>
+
+          <ion-button fill="clear" color="danger" (click)="removeStep(step.draftId)">Remove</ion-button>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            Instruction
+            <textarea
+              [ngModel]="step.instruction"
+              (ngModelChange)="updateInstruction(step.draftId, $event)"
+              placeholder="Sauté the onions until translucent."
+            ></textarea>
+          </label>
+
+          <label>
+            Type
+            <select
+              [ngModel]="step.stepType"
+              (ngModelChange)="updateStepType(step.draftId, $event)"
+            >
+              <option value="sequential">Sequential</option>
+              <option value="background">Background</option>
+              <option value="timed">Timed</option>
+            </select>
+          </label>
+
+          <label>
+            Timer seconds
+            <input
+              type="number"
+              inputmode="numeric"
+              [ngModel]="step.timerSeconds"
+              [disabled]="step.stepType !== 'timed'"
+              (ngModelChange)="updateTimerSeconds(step.draftId, $event)"
+            />
+          </label>
+
+          <label>
+            Background dependency
+            <select
+              [ngModel]="step.backgroundStepDraftId ?? ''"
+              (ngModelChange)="updateBackgroundStep(step.draftId, $event)"
+            >
+              <option value="">None</option>
+              @for (backgroundStep of backgroundOptionsFor(step); track backgroundStep.draftId) {
+                <option [value]="backgroundStep.draftId">
+                  Step {{ backgroundStep.stepNumber }}
+                </option>
+              }
+            </select>
+          </label>
+        </div>
+
+        <p class="dependency-note">
+          Timed steps require a timer. Background dependency can point to any other background step.
+        </p>
+      </section>
+    }
+  </div>
+
+  <ion-button fill="outline" color="medium" (click)="addStep()">Add Step</ion-button>
+</section>

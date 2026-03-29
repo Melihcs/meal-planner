@@ -1,4 +1,5 @@
 using MealPlanner.Api.Domain.Exceptions;
+using MealPlanner.Api.Features.Recipes;
 using MealPlanner.Api.Infrastructure.Auth;
 using MealPlanner.Api.Health;
 using MealPlanner.Api.Infrastructure.Configuration;
@@ -103,6 +104,8 @@ protectedApi.MapGet("/auth/me", (ICurrentUserService currentUser) => Results.Ok(
     email = currentUser.Email,
 }))
     .WithName("GetCurrentUser");
+
+protectedApi.MapRecipeEndpoints();
 
 var summaries = new[]
 {

@@ -64,33 +64,31 @@ export const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            ...shellPage({
-              title: 'Recipes',
-              eyebrow: 'Recipes tab',
-              headline: 'Recipe library and drafting land here.',
-              description:
-                'This route anchors recipe browsing, creation, and details for the rest of MVP 1.',
-            }),
+            loadComponent: () =>
+              import('./features/recipes/pages/recipe-list.page').then(
+                (module) => module.RecipeListPageComponent,
+              ),
           },
           {
             path: 'new',
-            ...shellPage({
-              title: 'New recipe',
-              eyebrow: 'Recipes flow',
-              headline: 'Recipe creation starts here.',
-              description:
-                'Future recipe form tasks attach to this route instead of reshaping the shell later.',
-            }),
+            loadComponent: () =>
+              import('./features/recipes/pages/recipe-editor.page').then(
+                (module) => module.RecipeEditorPageComponent,
+              ),
+          },
+          {
+            path: ':recipeId/edit',
+            loadComponent: () =>
+              import('./features/recipes/pages/recipe-editor.page').then(
+                (module) => module.RecipeEditorPageComponent,
+              ),
           },
           {
             path: ':recipeId',
-            ...shellPage({
-              title: 'Recipe detail',
-              eyebrow: 'Recipes flow',
-              headline: 'Recipe details, nutrition, and actions live here.',
-              description:
-                'Subsequent recipe tasks can add detail, nutrition, comments, and saves on this route.',
-            }),
+            loadComponent: () =>
+              import('./features/recipes/pages/recipe-detail.page').then(
+                (module) => module.RecipeDetailPageComponent,
+              ),
           },
         ],
       },
