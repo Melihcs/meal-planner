@@ -14,6 +14,7 @@ internal sealed class UserProfileConfiguration : IEntityTypeConfiguration<UserPr
 
         builder.Property(entity => entity.Id)
             .HasColumnName("id")
+            .HasMaxLength(255)
             .ValueGeneratedNever();
 
         builder.Property(entity => entity.DisplayName)

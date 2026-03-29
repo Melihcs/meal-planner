@@ -1,5 +1,7 @@
 import { contextBridge } from 'electron';
 
-contextBridge.exposeInMainWorld('electronAPI', {
+const electronAPI = {
   platform: 'electron',
-});
+} as const;
+
+contextBridge.exposeInMainWorld('electronAPI', electronAPI);

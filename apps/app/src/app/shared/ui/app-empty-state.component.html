@@ -1,0 +1,9 @@
+<section class="empty-state" aria-live="polite">
+  @if (icon()) {
+    <div class="icon-shell">
+      <ion-icon [name]="icon()!" aria-hidden="true" />
+    </div>
+  }
+
+  <p class="message">{{ message() }}</p>
+</section>

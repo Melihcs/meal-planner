@@ -18,7 +18,8 @@ internal sealed class ShoppingListConfiguration : IEntityTypeConfiguration<Shopp
             .ValueGeneratedOnAdd();
 
         builder.Property(entity => entity.UserId)
-            .HasColumnName("user_id");
+            .HasColumnName("user_id")
+            .HasMaxLength(255);
 
         builder.Property(entity => entity.PlanId)
             .HasColumnName("plan_id");

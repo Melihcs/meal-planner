@@ -6,7 +6,7 @@
     "outDir": "dist",
     "rootDir": "src",
     "lib": ["ES2023"],
-    "types": ["node"]
+    "types": ["node", "electron"]
   },
   "include": ["src/**/*.ts"]
 }

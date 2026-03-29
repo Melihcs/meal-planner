@@ -26,6 +26,10 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__Postgres: Host=postgres;Port=5432;Database=mealplanner;Username=mealplanner;Password=mealplanner
+      JWT_ISSUER: http://localhost:${API_PORT:-5000}
+      JWT_AUDIENCE: meal-planner-local
+      JWT_SECRET: local-development-jwt-secret-1234567890
+      JWT_EXPIRY_DAYS: 7
     ports:
       - '${API_PORT:-5000}:8080'
     healthcheck:

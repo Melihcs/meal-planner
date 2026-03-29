@@ -1,28 +1,3 @@
-.hero {
-  display: grid;
-  gap: 0.75rem;
-  min-height: 100%;
-  align-content: center;
-}
-
-.eyebrow {
-  color: var(--ion-color-medium);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.05;
-  margin: 0;
-}
-
-.body {
-  color: var(--ion-color-medium);
-  font-size: 1.05rem;
-  margin: 0;
-  max-width: 38rem;
+:host {
+  display: contents;
 }

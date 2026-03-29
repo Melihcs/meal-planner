@@ -1,0 +1,23 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="recipes" [routerLink]="['/tabs/recipes']">
+      <ion-icon aria-hidden="true" name="book-outline" />
+      <ion-label>Recipes</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="plan" [routerLink]="['/tabs/plan']">
+      <ion-icon aria-hidden="true" name="calendar-clear-outline" />
+      <ion-label>Plan</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="history" [routerLink]="['/tabs/history']">
+      <ion-icon aria-hidden="true" name="time-outline" />
+      <ion-label>History</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" [routerLink]="['/tabs/profile']">
+      <ion-icon aria-hidden="true" name="person-circle-outline" />
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

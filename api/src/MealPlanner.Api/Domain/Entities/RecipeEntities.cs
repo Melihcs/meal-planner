@@ -3,7 +3,7 @@ namespace MealPlanner.Api.Domain.Entities;
 public sealed class Recipe : IHasUpdatedAt
 {
     public Guid Id { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }
     public int Servings { get; set; }

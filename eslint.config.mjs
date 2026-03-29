@@ -19,6 +19,8 @@ export default tseslint.config(
       '**/www/**',
       '**/platforms/**',
       '**/plugins/**',
+      '**/android/**',
+      '**/ios/**',
       '**/release/**',
       '**/bin/**',
       '**/obj/**',

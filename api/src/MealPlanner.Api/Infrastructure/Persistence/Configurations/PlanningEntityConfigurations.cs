@@ -18,7 +18,8 @@ internal sealed class WeeklyPlanConfiguration : IEntityTypeConfiguration<WeeklyP
             .ValueGeneratedOnAdd();
 
         builder.Property(entity => entity.UserId)
-            .HasColumnName("user_id");
+            .HasColumnName("user_id")
+            .HasMaxLength(255);
 
         builder.Property(entity => entity.WeekStart)
             .HasColumnName("week_start");

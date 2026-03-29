@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { IonApp, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
-  imports: [IonApp, IonContent, IonHeader, IonTitle, IonToolbar],
+  imports: [IonApp, IonRouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = signal('Meal Planner');
-}
+export class App {}

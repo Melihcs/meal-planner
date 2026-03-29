@@ -3,7 +3,7 @@ namespace MealPlanner.Api.Domain.Entities;
 public sealed class WeeklyPlan : IHasUpdatedAt
 {
     public Guid Id { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
     public DateOnly WeekStart { get; set; }
     public string Status { get; set; } = string.Empty;
     public string? Notes { get; set; }

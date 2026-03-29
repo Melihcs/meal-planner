@@ -7,7 +7,7 @@ public interface IHasUpdatedAt
 
 public sealed class UserProfile : IHasUpdatedAt
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; } = string.Empty;
     public string DisplayName { get; set; } = string.Empty;
     public string? AvatarUrl { get; set; }
     public DateTime CreatedAt { get; set; }

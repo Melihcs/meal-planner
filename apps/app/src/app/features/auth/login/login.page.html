@@ -1,0 +1,47 @@
+<ion-content fullscreen="true">
+  <div class="login-page">
+    <section class="login-panel">
+      <p class="eyebrow">Meal Planner</p>
+      <h1>Plan meals, keep recipes close, and build the weekly loop.</h1>
+      <p class="body">
+        Sign in with Google for the real auth path. During development, Easy Login gives you a
+        local mock session without leaving the app.
+      </p>
+
+      <div class="actions">
+        <ion-button
+          expand="block"
+          size="large"
+          [disabled]="isAuthenticating()"
+          (click)="continueWithGoogle()"
+        >
+          Continue with Google
+        </ion-button>
+
+        @if (mockAuthEnabled) {
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="medium"
+            size="large"
+            [disabled]="isAuthenticating()"
+            (click)="continueWithEasyLogin()"
+          >
+            Easy Login
+          </ion-button>
+        }
+      </div>
+
+      @if (mockAuthEnabled) {
+        <p class="dev-note">Easy Login is development-only mock authentication.</p>
+      }
+
+      @if (isAuthenticating()) {
+        <div class="loading-state" role="status" aria-live="polite">
+          <ion-spinner name="crescent" />
+          <p>{{ loadingMessage() }}</p>
+        </div>
+      }
+    </section>
+  </div>
+</ion-content>

@@ -1,0 +1,8 @@
+<section class="error-state" aria-live="polite">
+  <div class="copy">
+    <p class="eyebrow">Something went wrong</p>
+    <p class="message">{{ message() }}</p>
+  </div>
+
+  <ion-button fill="solid" (click)="retry.emit()">Try Again</ion-button>
+</section>

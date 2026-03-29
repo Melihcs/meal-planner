@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-page">
+    <section class="profile-card">
+      <p class="eyebrow">Profile tab</p>
+      <h1>Profile, household, and account settings start here.</h1>
+      <p class="description">
+        Household setup, dietary profile flows, and later account features all hang off this route
+        tree.
+      </p>
+
+      <div class="actions">
+        <ion-button [routerLink]="['/tabs/profile/household']" fill="solid">
+          Household Route
+        </ion-button>
+
+        <ion-button color="medium" fill="outline" (click)="signOut()">Sign Out</ion-button>
+      </div>
+    </section>
+  </div>
+</ion-content>

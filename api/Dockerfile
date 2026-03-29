@@ -1,12 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY MealPlanner.Api.sln ./
-COPY src/MealPlanner.Api/MealPlanner.Api.csproj src/MealPlanner.Api/
-RUN dotnet restore MealPlanner.Api.sln
-
 COPY src/MealPlanner.Api/ src/MealPlanner.Api/
-RUN dotnet publish src/MealPlanner.Api/MealPlanner.Api.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet restore src/MealPlanner.Api/MealPlanner.Api.csproj \
+    && dotnet publish src/MealPlanner.Api/MealPlanner.Api.csproj -c Release -o /app/publish /p:UseAppHost=false --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 RUN apt-get update \
